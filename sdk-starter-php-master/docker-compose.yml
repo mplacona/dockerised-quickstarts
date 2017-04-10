@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - ./webroot:/code
+            - ./site.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - php
+        restart: always
+
+    php:
+        image: php:7-fpm
+        ports:
+            - "9000:9000"
+
+    # mysql:
+    #     image: mariadb
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: admin
+    
+    # phpmyadmin:
+    #     image: phpmyadmin/phpmyadmin
+    #     restart: always
+    #     links:
+    #         - mysql
+    #     ports:
+    #         - 8183:80
+    #     environment:
+    #         MYSQL_USERNAME: admin
+    #         MYSQL_ROOT_PASSWORD: admin
+    #         PMA_ARBITRARY: 1
